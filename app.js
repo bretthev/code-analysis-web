@@ -1,18 +1,20 @@
-function getPersonList() {
+//helper functions
+const getPersonList = () => {
     return new Promise((resolve, reject) => {
         fetch('http://api.namegame.willowtreemobile.com/').then(function(response) {
             if (response.status !== 200) {
                 reject(new Error("Error!"));
             }
-
             response.json().then((imageList) => {
-                resolve(imageList);
+                let completeList = imageList.map((person) => Object.assign({}, person, person.lastName = getLastName(person.name)));
+
+                resolve(completeList);
             });
         });
     });
 }
 
-function getLastName(fullName) {
+const getLastName = (fullName) => {
     return fullName.match(/\w+/g)[1];
 }
 
@@ -21,7 +23,7 @@ const getFirstName = (fullName) => {
 };
 
 
-function shuffleList(list) {
+const shuffleList = (list) => {
     let result = list.slice(1);
 
     let tmp, j, i = list.length - 1
@@ -36,13 +38,13 @@ function shuffleList(list) {
     return result;
 }
 
-function filterByName(searchForName, personList) {
+const filterByName = (searchForName, personList) => {
     return personList.filter((person) => {
         return person.name === searchForName;
     });
 }
 
-function sortObjListByProp(prop) {
+const sortObjListByProp = (prop) => {
     return function(objList) {
         // Make a copy & don't mutate the passed in list
         let result = objList.slice(1);
@@ -65,7 +67,7 @@ function sortObjListByProp(prop) {
 
 const sortByFirstName = sortObjListByProp('name');
 
-const sortByLastName = (personList) => sortByFirstName(personList).reverse();
+const sortByLastName = sortObjListByProp('lastName')
 
 
 const Search = (props) => React.DOM.input({
@@ -94,6 +96,8 @@ const ListContainer = (props) => React.DOM.table({ className: 'list-container' }
         React.createElement(ListRow, { key: `person-${i}`, person })))
 ]);
 
+//react view
+
 const App = React.createClass({
     getInitialState() {
         return {
@@ -103,6 +107,7 @@ const App = React.createClass({
     },
 
     componentDidMount() {
+        let personListWithLastName;
         getPersonList().then((personList) =>
             this.setState({
                 personList,
@@ -148,6 +153,7 @@ const App = React.createClass({
     }
 });
 
+//sends app to html
 ReactDOM.render(
     React.createElement(App),
     document.getElementById('app')
