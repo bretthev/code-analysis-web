@@ -1,31 +1,7 @@
-# Code Analysis
+### Approach
 
-See comments in `index.html` for instructions.
+The code was pretty confusing the first time I looked at it, so the first thing I wanted to do was split out some of it into separate files. The styles and scripts both got their own files, and I took out a lot of the instruction comments to avoid confusing myself.
 
-## Run
+### Changes
 
-Open `index.html` in Google Chrome.
-
-## Style Guide
-
-### Git Commit Messages
-
-- Use the present tense ("Add feature" not "Added feature")
-- Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
-- Limit the first line to 72 characters or less
-- Reference issues and pull requests liberally
-- Consider starting the commit message with an applicable emoji:
-    - **Improvements**
-        - :art: `:art:` when improving the format/structure of the code
-        - :fire: `:fire:` when removing code or files
-        - :tada: `:tada:` when adding a feature
-        - :goat: `:goat:` when improving performance
-    - **Misc**
-        - :memo: `:memo:` when writing docs
-    - **Dependencies**
-        - :arrow_up: `:arrow_up:` when upgrading dependencies
-        - :arrow_down: `:arrow_down:` when downgrading dependencies
-
-### React Styles
-
-- Always favor stateless components
+Most of my changes were pretty minor, but I did fix the search and filterByLastName methods, both of which were broken. I thought about setting up a webpack or other build tool, but it seemed unnecessary for the relatively simple architecture of the app.
