@@ -1,106 +1,17 @@
-<!-- Welcome!
-     ========
-
-     This is a list view for employees that work at WillowTree.
-
-
-     What it does:
-     ~~~~~~~~~~~~~
-
-     - Lists employees photos & names.
-     - Search for an employee by name.
-     - Sort employees by their first names.
-     - Sort empolyees by their last names.
-     - Shuffle the list order (because why not).
-
-     Implementation details:
-     ~~~~~~~~~~~~~~~~~~~~~~~
-
-     - No compile step—Just open this file in a browser.
-     - The view layer is written in React (without JSX).
-       * If you don't know React, don't fret! The logic lives
-         outside of it for the most part.
-
-
-     So... what now?
-     ~~~~~~~~~~~~~~~
-
-     Take a look at the code. It works on the surface, but can it be
-     improved? Are there things that you would do differently?
-
-     Change it & Have fun!
-
-
-     Misc. Notes
-     ~~~~~~~~~~~
-
-     This code is only expected to work in the latest version of
-     Google Chrome. Feel free to use all the latest & greatest
-     things that are offered (new API's for JS, CSS, etc.).
-
-     Currently this project does _not_ have a build step (i.e. it runs
-     directly by opening the file in Google Chrome). If you finish
-     with improvements & feel like there isn't much else to do _then_
-     add in a build step if you wish. This is NOT strictly required.
-
-   -->
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
     <head>
         <title>Single Page Application</title>
-
-        <style>
-        body {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        .app-container {
-            width: 400px;
-            margin: 0 auto 0 auto;
-        }
-
-        .image {
-            width: 100px;
-            height: 100px;
-        }
-
-        .list-container {
-            width: 100%;
-            border: 1px solid black;
-        }
-        </style>
+        <link rel="stylesheet" type="text/css" href="styles.css">
     </head>
     <body>
-        <!-- Container for our application -->
         <div id="app"></div>
 
-
-        <!-- 3rd Party Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js"></script>
 
-
-        <!-- Our Application Logic -->
         <script>
 
-        /*==================================================
-
-           API
-
-         ***************************************************/
-
-        /**
-         * Get the data from the namegame endpoint.
-         *
-         * The data comes back in the format:
-         *
-         *    [
-         *        { name: 'Viju Legard', url: '...' },
-         *        { name: 'Matt Seibert', url: '...' },
-         *        ...
-         *    ]
-         */
         function getPersonList() {
             return new Promise((resolve, reject) => {
                 fetch('http://api.namegame.willowtreemobile.com/').then(function(response) {
@@ -115,14 +26,6 @@
             });
         }
 
-
-        /*==================================================
-
-           DATA TRANSFORMS
-
-         ***************************************************/
-
-
         function getLastName(fullName) {
             return fullName.match(/\w+/g)[1];
         }
@@ -131,9 +34,7 @@
             return fullName.match(/\w+/g)[0];
         };
 
-        /**
-         * Fisher-Yates shuffle
-         */
+
         function shuffleList(list) {
             // Make a copy & don't mutate the passed in list
             let result = list.slice(1);
@@ -271,6 +172,7 @@
             },
 
             _onSearch(e) {
+
                 this.setState({
                     visiblePersonList: filterByName(e.target.value, this.state.personList)
                 });
