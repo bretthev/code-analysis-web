@@ -40,7 +40,7 @@ const shuffleList = (list) => {
 
 const filterByName = (searchForName, personList) => {
     return personList.filter((person) => {
-        return person.name === searchForName;
+        return person.name.toLowerCase().includes(searchForName.toLowerCase());
     });
 }
 
